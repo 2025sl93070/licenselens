@@ -1,8 +1,7 @@
-FROM node:20-alpine
+FROM python:3.12-slim
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-RUN npm run build
-EXPOSE 3001
-CMD ["npm", "start"]
+EXPOSE 8000
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

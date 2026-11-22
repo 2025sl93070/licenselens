@@ -35,3 +35,7 @@ export async function getPolicies(): Promise<Policy[]> {
   const { data } = await api.get('/policies');
   return data;
 }
+
+export function getExportCsvUrl(id: string): string {
+  return `/api/analyze/${id}/export/csv`;
+}

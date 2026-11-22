@@ -1,9 +1,9 @@
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getAnalysis } from '../lib/api';
+import { getAnalysis, getExportCsvUrl } from '../lib/api';
 import {
   AlertTriangle, CheckCircle, Package, Shield,
-  ArrowLeft, Info, ExternalLink
+  ArrowLeft, Info, ExternalLink, Download
 } from 'lucide-react';
 import RiskBadge from '../components/RiskBadge';
 import RiskSummaryChart from '../components/RiskSummaryChart';
@@ -75,6 +75,16 @@ export default function DashboardPage() {
             Ecosystem: <strong>{result.ecosystem}</strong> ·{' '}
             {formatTimestamp(result.timestamp)}
           </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <a
+            href={getExportCsvUrl(result.id)}
+            download
+            className="btn-secondary text-sm"
+          >
+            <Download className="w-4 h-4" />
+            Export CSV
+          </a>
         </div>
       </div>
 
