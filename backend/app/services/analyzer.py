@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List, Optional
 from app.data.licenses import LICENSE_DATABASE, LICENSE_CONFLICTS, normalize_license
 from app.data.policies import DEFAULT_POLICIES
@@ -173,7 +173,7 @@ def analyze_project(
 
     return {
         "id": str(uuid.uuid4()),
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "projectName": project_name,
         "ecosystem": ecosystem,
         "totalDependencies": len(deps),

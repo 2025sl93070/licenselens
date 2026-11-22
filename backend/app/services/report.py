@@ -1,5 +1,5 @@
 import io
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 def generate_csv_report(result: dict) -> bytes:
@@ -7,7 +7,7 @@ def generate_csv_report(result: dict) -> bytes:
     lines.append("LicenseLens Analysis Report")
     lines.append(f"Project: {result['projectName']}")
     lines.append(f"Ecosystem: {result['ecosystem']}")
-    lines.append(f"Generated: {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}")
+    lines.append(f"Generated: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
     lines.append(f"Overall Risk: {result['overallRisk'].upper()}")
     lines.append(f"Explanation: {result['overallRiskExplanation']}")
     lines.append("")

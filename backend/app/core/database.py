@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine, Column, String, Integer, Float, Boolean, DateTime, JSON, Text, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from datetime import datetime
+from sqlalchemy.orm import declarative_base, sessionmaker
+from datetime import datetime, timezone
 import os
 from dotenv import load_dotenv
 
@@ -23,7 +22,7 @@ class AnalysisDB(Base):
     __tablename__ = "analyses"
 
     id = Column(String, primary_key=True)
-    timestamp = Column(DateTime, default=datetime.utcnow)
+    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     project_name = Column(String, nullable=False)
     ecosystem = Column(String, nullable=False)
     total_dependencies = Column(Integer, default=0)

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from contextlib import asynccontextmanager
 import os
 from dotenv import load_dotenv
 
@@ -11,10 +11,18 @@ load_dotenv()
 
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_db()
+    yield
+
+
 app = FastAPI(
     title="LicenseLens API",
     description="Open-Source License Risk and Dependency Analysis",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -26,8 +34,3 @@ app.add_middleware(
 )
 
 app.include_router(router, prefix="/api")
-
-
-@app.on_event("startup")
-def startup():
-    init_db()
