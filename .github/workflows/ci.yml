@@ -10,38 +10,34 @@ jobs:
   backend-tests:
     name: Backend (Python / pytest)
     runs-on: ubuntu-latest
-    if: hashFiles('backend/requirements.txt') != ''
-    defaults:
-      run:
-        working-directory: backend
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Check if backend exists
-        id: backend_check
-        working-directory: ${{ github.workspace }}
-        run: echo "exists=$(test -d backend && echo true || echo false)" >> $GITHUB_OUTPUT
+        id: check
+        run: test -f backend/requirements.txt && echo "exists=true" >> $GITHUB_OUTPUT || echo "exists=false" >> $GITHUB_OUTPUT
 
       - uses: actions/setup-python@v5
-        if: steps.backend_check.outputs.exists == 'true'
+        if: steps.check.outputs.exists == 'true'
         with:
           python-version: "3.12"
 
       - name: Install dependencies
-        if: steps.backend_check.outputs.exists == 'true'
+        if: steps.check.outputs.exists == 'true'
+        working-directory: backend
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Run tests
-        if: steps.backend_check.outputs.exists == 'true'
-        run: |
-          pytest tests/ -v --tb=short
+        if: steps.check.outputs.exists == 'true'
+        working-directory: backend
+        run: pytest tests/ -v --tb=short
 
-      - name: Skip (backend not yet added)
-        if: steps.backend_check.outputs.exists != 'true'
-        run: echo "Backend directory not present — skipping. A teammate will add it via PR."
+      - name: Skip backend (not yet added)
+        if: steps.check.outputs.exists != 'true'
+        run: echo "No backend/requirements.txt found — skipping backend job."
 
   frontend-build:
     name: Frontend (Node / Vite build)
