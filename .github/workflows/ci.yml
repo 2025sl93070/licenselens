@@ -10,6 +10,7 @@ jobs:
   backend-tests:
     name: Backend (Python / pytest)
     runs-on: ubuntu-latest
+    if: hashFiles('backend/requirements.txt') != ''
     defaults:
       run:
         working-directory: backend
