@@ -220,7 +220,7 @@ export default function DashboardPage() {
               <p className="text-sm text-gray-500 mb-4">
                 Visual map of direct and transitive dependencies, color-coded by risk level. Showing up to 30 packages.
               </p>
-              <DependencyGraph dependencies={result.dependencies} />
+              <DependencyGraph dependencies={result.dependencies} projectName={result.projectName} />
             </div>
           )}
         </div>

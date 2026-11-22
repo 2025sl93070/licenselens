@@ -1,9 +1,10 @@
 import { Outlet, NavLink } from 'react-router-dom';
-import { Shield, Upload, Clock, BookOpen } from 'lucide-react';
+import { Shield, Upload, Clock, BookOpen, GitCompare } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const navItems = [
   { to: '/', label: 'Analyze', icon: Upload },
+  { to: '/compare', label: 'Compare', icon: GitCompare },
   { to: '/history', label: 'History', icon: Clock },
   { to: '/licenses', label: 'Licenses', icon: BookOpen },
 ];

@@ -22,13 +22,13 @@ export default function UploadPage() {
   const analyzeMutation = useMutation({
     mutationFn: () => analyzeFile(file!, projectName || file!.name, policyId),
     onSuccess: (result) => navigate(`/analysis/${result.id}`),
-    onError: (e: any) => setError(e.response?.data?.error || e.message),
+    onError: (e: any) => setError(e.response?.data?.detail || e.message),
   });
 
   const demoMutation = useMutation({
     mutationFn: () => runDemo(policyId),
     onSuccess: (result) => navigate(`/analysis/${result.id}`),
-    onError: (e: any) => setError(e.response?.data?.error || e.message),
+    onError: (e: any) => setError(e.response?.data?.detail || e.message),
   });
 
   const handleDrop = (e: React.DragEvent) => {
