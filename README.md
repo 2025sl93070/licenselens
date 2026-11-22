@@ -2,11 +2,6 @@
 
 **An Explainable Open-Source License Risk and Dependency Analysis Tool**
 
-> Assignment Project — BITS Pilani WILP | FSAD Feb-Jul 2026  
-> Team: Anshu Kushwaha (2025sl93057) · Anushka Saini (2025sl93070) · Ayushi Setiya (2025sl93103)
-
----
-
 ## Features
 
 | Feature | Description |
