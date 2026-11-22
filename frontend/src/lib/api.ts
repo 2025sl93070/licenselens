@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AnalysisResult, Policy } from '../types';
+import { AnalysisResult, CompareResult, Policy } from '../types';
 
 const api = axios.create({ baseURL: '/api' });
 
@@ -18,6 +18,21 @@ export async function analyzeFile(
   form.append('projectName', projectName);
   form.append('policyId', policyId);
   const { data } = await api.post('/analyze', form);
+  return data;
+}
+
+export async function compareFiles(
+  file1: File,
+  file2: File,
+  projectName: string,
+  policyId: string
+): Promise<CompareResult> {
+  const form = new FormData();
+  form.append('file1', file1);
+  form.append('file2', file2);
+  form.append('project_name', projectName);
+  form.append('policy_id', policyId);
+  const { data } = await api.post('/analyze/compare', form);
   return data;
 }
 

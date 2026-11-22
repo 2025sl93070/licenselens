@@ -4,6 +4,7 @@ import UploadPage from './pages/UploadPage';
 import DashboardPage from './pages/DashboardPage';
 import HistoryPage from './pages/HistoryPage';
 import LicenseGlossaryPage from './pages/LicenseGlossaryPage';
+import ComparePage from './pages/ComparePage';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/analysis/:id" element={<DashboardPage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/licenses" element={<LicenseGlossaryPage />} />
+          <Route path="/compare" element={<ComparePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

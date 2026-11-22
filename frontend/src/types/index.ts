@@ -104,3 +104,62 @@ export interface AnalysisResult {
   overallRisk: RiskLevel;
   overallRiskExplanation: string;
 }
+
+export interface CompareSnapshot {
+  filename: string;
+  ecosystem: string;
+  totalDependencies: number;
+  directDependencies: number;
+  transitiveDependencies: number;
+  overallRisk: RiskLevel;
+}
+
+export interface LicenseChange {
+  name: string;
+  oldLicense: LicenseId;
+  newLicense: LicenseId;
+  oldRisk: RiskLevel;
+  newRisk: RiskLevel;
+  riskReasons: string[];
+  version: string;
+}
+
+export interface RiskChange {
+  name: string;
+  license: LicenseId;
+  oldRisk: RiskLevel;
+  newRisk: RiskLevel;
+  version: string;
+}
+
+export interface CompareSummary {
+  added: number;
+  removed: number;
+  licenseChanged: number;
+  riskIncreased: number;
+  riskDecreased: number;
+  newConflicts: number;
+  resolvedConflicts: number;
+  newViolations: number;
+  resolvedViolations: number;
+}
+
+export interface CompareResult {
+  id: string;
+  timestamp: string;
+  projectName: string;
+  policyId: string;
+  baseline: CompareSnapshot;
+  current: CompareSnapshot;
+  riskDirection: 'increased' | 'decreased' | 'unchanged';
+  added: Dependency[];
+  removed: Dependency[];
+  licenseChanged: LicenseChange[];
+  riskIncreased: RiskChange[];
+  riskDecreased: RiskChange[];
+  newConflicts: LicenseConflict[];
+  resolvedConflicts: LicenseConflict[];
+  newViolations: PolicyViolation[];
+  resolvedViolations: PolicyViolation[];
+  summary: CompareSummary;
+}
